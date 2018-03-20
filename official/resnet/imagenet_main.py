@@ -214,6 +214,7 @@ class ImagenetModel(resnet_model.Model):
         enables users to extend the same model to their own datasets.
       version: Integer representing which version of the ResNet network to use.
         See README for details. Valid values: [1, 2]
+      use_fp16: If True, use fp16 tensors in the model.
     """
 
     # For bigger models, we want to use "bottleneck" layers
@@ -292,8 +293,8 @@ def imagenet_model_fn(features, labels, mode, params):
       momentum=0.9,
       data_format=params['data_format'],
       version=params['version'],
-      use_fp16=params["use_fp16"],
-      fp16_loss_scale=params["fp16_loss_scale"],
+      use_fp16=params['use_fp16'],
+      fp16_loss_scale=params['fp16_loss_scale'],
       loss_filter_fn=None,
       multi_gpu=params['multi_gpu']
   )

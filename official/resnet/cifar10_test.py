@@ -158,7 +158,7 @@ class BaseTest(tf.test.TestCase):
     num_classes = 246
 
     model = cifar10_main.Cifar10Model(32, data_format='channels_last',
-                                   num_classes=num_classes, version=version)
+                                      num_classes=num_classes, version=version)
     fake_input = tf.random_uniform([batch_size, _HEIGHT, _WIDTH, _NUM_CHANNELS])
     output = model(fake_input, training=True)
 

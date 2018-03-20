@@ -268,8 +268,10 @@ class BaseTest(tf.test.TestCase):
     batch_size = 135
     num_classes = 246
 
-    model = imagenet_main.ImagenetModel(50, data_format='channels_last',
-                                    num_classes=num_classes, version=version)
+    model = imagenet_main.ImagenetModel(
+        50, data_format='channels_last', num_classes=num_classes,
+        version=version)
+
     fake_input = tf.random_uniform([batch_size, 224, 224, 3])
     output = model(fake_input, training=True)
 
