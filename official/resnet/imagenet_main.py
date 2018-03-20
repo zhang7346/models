@@ -300,7 +300,7 @@ def imagenet_model_fn(features, labels, mode, params):
   )
 
 
-def main(argv):
+def main(argv, records):
   parser = resnet_run_loop.ResnetArgParser(
       resnet_size_choices=[18, 34, 50, 101, 152, 200])
 
@@ -311,7 +311,7 @@ def main(argv):
   flags = parser.parse_args(args=argv[1:])
 
   input_function = flags.use_synthetic_data and get_synth_input_fn() or input_fn
-  resnet_run_loop.resnet_main(flags, imagenet_model_fn, input_function)
+  resnet_run_loop.resnet_main(flags, imagenet_model_fn, input_function, records=records)
 
 
 if __name__ == '__main__':

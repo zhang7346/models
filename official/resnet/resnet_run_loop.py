@@ -331,7 +331,7 @@ def validate_batch_size_for_multi_gpu(batch_size):
     raise ValueError(err)
 
 
-def resnet_main(flags, model_function, input_function):
+def resnet_main(flags, model_function, input_function, records):
   """Shared main loop for ResNet Models."""
 
   # Using the Winograd non-fused algorithms provides a small performance boost.
@@ -382,8 +382,10 @@ def resnet_main(flags, model_function, input_function):
                             flags.epochs_between_evals,
                             flags.num_parallel_calls, flags.multi_gpu)
 
+    records.start()
     classifier.train(input_fn=input_fn_train, hooks=train_hooks,
                      max_steps=flags.max_train_steps)
+    records.end()
 
     print('Starting to evaluate.')
     # Evaluate the model and print results
@@ -397,8 +399,10 @@ def resnet_main(flags, model_function, input_function):
     # (which is generally unimportant in those circumstances) to terminate.
     # Note that eval will run for max_train_steps each loop, regardless of the
     # global_step count.
+    records.start()
     eval_results = classifier.evaluate(input_fn=input_fn_eval,
                                        steps=flags.max_train_steps)
+    records.end()
     print(eval_results)
 
 
